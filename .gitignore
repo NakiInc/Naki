@@ -105,3 +105,7 @@ dist
 
 # Config folder
 config.js
+
+# Database
+
+database.bot.json
