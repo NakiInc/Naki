@@ -11,9 +11,8 @@ module.exports = async (bot, message) => {
     var prefix;
     if (bot.db.get('prefixes').find({guild: message.guild.id}).value()) {
         let searchPrefix = Object.values(bot.db.get('prefixes').filter({guild: message.guild.id}).find('prefix').value());
-        return prefix = searchPrefix[1];
-    };
-    prefix = bot.config.prefix;
+        prefix = searchPrefix[1];
+    } else { prefix = bot.config.prefix };
 
     // Variables globales
 
@@ -32,6 +31,15 @@ module.exports = async (bot, message) => {
         infoUrl: bot.emojis.cache.find(e => e.id === "695737758940921918").url
     };
 
+    /**
+     * Format la date
+     * 
+     * @param {Date} date 
+     */
+    var dateFormat = (date) => {
+        return `${date.getDate()}/${date.getMonth() < 9 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`}/${date.getFullYear()} ${date.toLocaleTimeString()}`;
+    };
+
     // conditions
 
     if (!message.content.startsWith(prefix)) return;
@@ -42,6 +50,6 @@ module.exports = async (bot, message) => {
 
     if (bot.commands.has(cmd)) command = bot.commands.get(cmd);
     else if (bot.aliases.has(cmd)) command = bot.commands.get(bot.aliases.get(cmd));
-
-    if (command) command.run(bot, message, args, db, emotes);
+    
+    if (command) command.run(bot, message, args, db, emotes, dateFormat);
 };

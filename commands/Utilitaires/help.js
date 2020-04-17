@@ -15,9 +15,10 @@ module.exports.run = async (bot, message, args, db, emotes) => {
     var prefix;
     if (bot.db.get('prefixes').find({guild: message.guild.id}).value()) {
         let searchPrefix = Object.values(bot.db.get('prefixes').filter({guild: message.guild.id}).find('prefix').value());
-        return prefix = searchPrefix[1];
+        prefix = searchPrefix[1];
+    } else {
+        prefix = bot.config.prefix;
     };
-    prefix = bot.config.prefix;
     
     let embed = new Discord.MessageEmbed()
         .setColor(bot.config.colors.primary)
