@@ -11,6 +11,13 @@ const {readdirSync} = require('fs');
 const {success, error, warning} = require('log-symbols');
 const {sep} = require('path');
 
+db.defaults({
+    prefixes: [], // { guild: "id", prefix: "string" }
+    join: [], // { guild: "id", channel: "id", message: "string", addedAt: "date" }
+    leave: [], // { guild: "id", channel: "id", message: "string", addedAt: "date" }
+    autorole: [], // { guild: "id", role: "id", addedAt: "date" }
+}).write();
+
 // Maintenant, nous allons attacher certaines variables à la variable bot afin de pouvoir y accéder partout.
 
 bot.config = conf;
